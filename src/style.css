@@ -1,0 +1,15 @@
+/* Root variables */
+:root {
+  /* font */
+  --bold-font: 'Ubuntu', sans-serif;
+  --main-font: 'Open Sans', sans-serif;
+}
+
+/*
+app CSS reset
+*/
+
+body, div, p {
+  margin: 0;
+  padding: 0;
+}
