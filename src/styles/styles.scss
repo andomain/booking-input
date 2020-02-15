@@ -5,3 +5,23 @@
   font-family: $main-font;
   font-size: 10px;
 }
+
+.App {
+  height: 100vh;
+  width: 100vw;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  background: linear-gradient(
+    180deg,
+    rgba($background-split, 1) 0%,
+    rgba($background-split, 1) 60%,
+    rgba($white, 1) 60%,
+    rgba($white, 1) 100%
+  );
+}
+
+.SearchForm {
+  background: $bookingYellow;
+  padding: .8rem;
+}
