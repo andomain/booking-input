@@ -6,12 +6,14 @@ const TEST = {
   ID: "test-id",
   NAME: "test-name",
   LABEL: "test-label",
-  PLACEHOLD: "test-placehold"
+  PLACEHOLD: "test-placehold",
+  VALUE: "test-value"
 };
 
 describe("<SearchInput />", () => {
   let wrapper;
   let input;
+  let label;
 
   const changeHandlerMock = jest.fn();
 
@@ -23,9 +25,11 @@ describe("<SearchInput />", () => {
         label={TEST.LABEL}
         onChange={changeHandlerMock}
         placeholder={TEST.PLACEHOLD}
+        value={TEST.VALUE}
       />
     );
     input = wrapper.find("input");
+    label = wrapper.find("label");
   });
 
   it("contains a text <input />", () => {
@@ -34,13 +38,20 @@ describe("<SearchInput />", () => {
   });
 
   it("should have an id & corresponding label for screenreaders", () => {
-    const label = wrapper.find("label");
     expect(input.props().id).toEqual(TEST.ID);
     expect(label.props().htmlFor).toEqual(TEST.ID);
   });
 
+  it('should display a label', () => {
+    expect(label.text()).toEqual(TEST.LABEL);
+  })
+
   it("should display a placeholder", () => {
     expect(input.props().placeholder).toEqual(TEST.PLACEHOLD);
+  });
+
+  it("should display the value prop", () => {
+    expect(input.props().value).toEqual(TEST.VALUE);
   });
 
   // TODO: Test focus state
@@ -53,12 +64,11 @@ describe("<SearchInput />", () => {
     const event = {
       preventDefault() {},
       target: {
-        name: 'testName',
         value: "testValue"
       }
     };
 
     input.simulate("change", event);
-    expect(changeHandlerMock).toHaveBeenCalledWith({testName: 'testValue'})
+    expect(changeHandlerMock).toHaveBeenCalledWith("testValue");
   });
 });
