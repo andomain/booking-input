@@ -6,8 +6,8 @@ import Form from '../components/SearchForm';
 
 describe('<App />', () => {
   let wrapper;
-  
-  beforeEach(() => wrapper = shallow(<App />));
+
+  beforeEach(() => (wrapper = shallow(<App />)));
 
   it('should render correctly', () => expect(wrapper).toMatchSnapshot());
 
@@ -18,4 +18,4 @@ describe('<App />', () => {
   it('renders a <Form /> element', () => {
     expect(wrapper.containsMatchingElement(<Form />)).toEqual(true);
   });
-})
+});

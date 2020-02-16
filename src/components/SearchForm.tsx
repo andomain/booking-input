@@ -1,4 +1,4 @@
-import React, { useState, FormEvent } from 'react'
+import React, { useState, FormEvent } from 'react';
 
 import SearchInput from './SearchInput';
 
@@ -13,20 +13,26 @@ const SearchForm = () => {
   const onSubmit = (e: FormEvent): void => {
     e.preventDefault();
     console.log(`Search for ${searchTerm}`);
-  }
+  };
 
   return (
-    <form className="SearchForm" autoComplete="off" noValidate onSubmit={onSubmit}>
+    <form
+      className="SearchForm"
+      autoComplete="off"
+      noValidate
+      onSubmit={onSubmit}
+    >
       <SearchInput
         id="pickup"
         name="pickup"
         label={LABEL_TEXT}
         onChange={onChange}
         placeholder={PLACEHOLDER}
-        value={searchTerm} />
+        value={searchTerm}
+      />
       <button type="submit">Search</button>
     </form>
-  )
-}
+  );
+};
 
 export default SearchForm;
