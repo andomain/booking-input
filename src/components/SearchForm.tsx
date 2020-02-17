@@ -2,7 +2,7 @@ import React, { useState, FormEvent } from 'react';
 
 import SearchInput from './SearchInput';
 
-const LABEL_TEXT = 'Pick-up location';
+const LABEL_TEXT = 'Pick-up Location';
 const PLACEHOLDER = 'city, airport, station, region and district...';
 
 const SearchForm = () => {
@@ -22,6 +22,7 @@ const SearchForm = () => {
       noValidate
       onSubmit={onSubmit}
     >
+      <h1 className="SearchForm__Title">Let's find your ideal car</h1>
       <SearchInput
         id="pickup"
         name="pickup"
@@ -30,7 +31,9 @@ const SearchForm = () => {
         placeholder={PLACEHOLDER}
         value={searchTerm}
       />
-      <button type="submit">Search</button>
+      <button type="submit" className="SearchForm__Submit">
+        Search
+      </button>
     </form>
   );
 };

@@ -4,7 +4,17 @@ $bold-font: "Ubuntu", sans-serif;
 
 // Colours
 $white: #fff;
-$bookingBlue: #3276bf;
-$bookingYellow: #eecd6a;
+$black: #333;
+$grey: #444;
+$lightYellow: #c8ae5b;
+$darkGreen: #006e3e;
 
+$bookingBlue: #0a6fba;
+$bookingYellow: #f3ce56;
+$bookingGreen: #00874d;
+
+// Set colours
 $background-split: $bookingBlue;
+$inputBorder: $lightYellow;
+$buttonColor: $bookingGreen;
+$buttonHoverColor: $darkGreen;

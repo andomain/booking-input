@@ -26,8 +26,11 @@ const SearchInput: FC<SearchInputProps> = ({
 
   return (
     <div className="SearchInput">
-      <label htmlFor={id}>{label}</label>
+      <label className="SearchInput__Label" htmlFor={id}>
+        {label}
+      </label>
       <input
+        className="SearchInput__Input"
         id={id}
         name={name}
         onChange={changeHandler}
