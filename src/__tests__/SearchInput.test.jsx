@@ -32,14 +32,11 @@ describe('<SearchInput />', () => {
     label = wrapper.find('label');
   });
 
+  it('should render correctly', () => expect(wrapper).toMatchSnapshot());
+
   it('contains a text <input />', () => {
     expect(input.length).toEqual(1);
     expect(input.props().type).toEqual('text');
-  });
-
-  it('should have an id & corresponding label for screenreaders', () => {
-    expect(input.props().id).toEqual(TEST.ID);
-    expect(label.props().htmlFor).toEqual(TEST.ID);
   });
 
   it('should display a label', () => {
@@ -70,5 +67,62 @@ describe('<SearchInput />', () => {
 
     input.simulate('change', event);
     expect(changeHandlerMock).toHaveBeenCalledWith('testValue');
+  });
+
+  describe('Search functionality', () => {
+    it('should fire onSelect handler when a search result is selected', () => {
+      return 0;
+    });
+
+    it('should set the input value to "name, region, country" when a search result is selected', () => {
+      return 0;
+    });
+
+    it('should revert to the typed search term when the input is clicked into again', () => {
+      return 0;
+    });
+
+    it('should not display search results when one alphanumeric character is typed', () => {
+      return 0;
+    });
+
+    it('should display search results when 2+ alphanumeric characters typed', () => {
+      return 0;
+    });
+
+    it('should display a loader while waiting for search results', () => {
+      return 0;
+    });
+
+    it('should show a maximum of 6 search results', () => {
+      return 0;
+    });
+
+    it('should return a message when no results found', () => {
+      return 0;
+    });
+
+    it('should remove the search results when characters are deleted leaving <2', () => {
+      return 0;
+    });
+
+    it('should render a <SearchResult /> element for each result', () => {
+      return 0;
+    });
+  });
+
+  describe('Accessibility', () => {
+    it('should have an id & corresponding label for screenreaders', () => {
+      expect(input.props().id).toEqual(TEST.ID);
+      expect(label.props().htmlFor).toEqual(TEST.ID);
+    });
+
+    it('should make search results navigable by keyboard', () => {
+      return 0;
+    });
+
+    it('should fire onSelect handler when user presses enter while hovering over a search result', () => {
+      return 0;
+    });
   });
 });
