@@ -1,8 +1,12 @@
-import React from 'react'
+import React from 'react';
+
+import SearchForm from './SearchForm';
+
+import '../styles/styles.scss';
 
 const App = () => (
-  <div>
-    Hello World
+  <div className="App">
+    <SearchForm />
   </div>
 );
 
