@@ -5,6 +5,7 @@ import { PLACE_TYPE } from '../../types';
 
 interface SearchTypeProps {
   type: PLACE_TYPE;
+  className?: string;
 }
 
 const getLabel = (type: PLACE_TYPE): string => {
@@ -22,15 +23,19 @@ const getLabel = (type: PLACE_TYPE): string => {
   }
 };
 
-const SearchType: FC<SearchTypeProps> = ({ type }) => {
-  const classes = classnames('SearchResult__Type', {
-    'SearchResult__Type--city': type === PLACE_TYPE.CITY,
-    'SearchResult__Type--airport': type === PLACE_TYPE.AIRPORT,
-    'SearchResult__Type--district': type === PLACE_TYPE.DISTRICT,
-    'SearchResult__Type--station': type === PLACE_TYPE.STATION,
+const SearchType: FC<SearchTypeProps> = ({ className = '', type }) => {
+  const classes = classnames('SearchType__Pill', {
+    'SearchType__Pill--city': type === PLACE_TYPE.CITY,
+    'SearchType__Pill--airport': type === PLACE_TYPE.AIRPORT,
+    'SearchType__Pill--district': type === PLACE_TYPE.DISTRICT,
+    'SearchType__Pill--station': type === PLACE_TYPE.STATION,
   });
 
-  return <span className={classes}>{getLabel(type)}</span>;
+  return (
+    <div className={`SearchType ${className}`}>
+      <span className={classes}>{getLabel(type)}</span>
+    </div>
+  );
 };
 
 export default SearchType;

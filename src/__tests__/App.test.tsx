@@ -1,11 +1,11 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, ShallowWrapper } from 'enzyme';
 
 import App from '../components/App';
 import Form from '../components/SearchForm';
 
 describe('<App />', () => {
-  let wrapper;
+  let wrapper: ShallowWrapper;
 
   beforeEach(() => (wrapper = shallow(<App />)));
 

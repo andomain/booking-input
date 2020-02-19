@@ -1,47 +1,52 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { mount, ReactWrapper } from 'enzyme';
 import SearchResult from '../components/SearchResult';
+import { PLACE_TYPE, SearchResponse } from '../types';
 
 // Example city item
-const CITY_DATA = {
+const CITY_DATA: SearchResponse = {
   country: 'United Kingdom',
-  placeType: 'C',
+  placeKey: 'abc',
+  placeType: PLACE_TYPE.CITY,
   name: 'Leeds',
   region: 'West Yorkshire',
 };
 
 // Example airport data
-const AIRPORT_DATA = {
+const AIRPORT_DATA: SearchResponse = {
   country: 'United Kingdom',
   city: 'London',
-  placeType: 'A',
+  placeType: PLACE_TYPE.AIRPORT,
+  placeKey: 'abc',
   iata: 'LGW',
   name: 'Gatwick Airport',
   region: 'Greater London',
 };
 
-const DISTRICT_DATA = {
+const DISTRICT_DATA: SearchResponse = {
   country: 'United Kingdom',
-  placeType: 'D',
+  placeType: PLACE_TYPE.DISTRICT,
+  placeKey: 'abc',
   name: 'Leeds City Centre',
   region: 'West Yorkshire',
 };
 
-const STATION_DATA = {
+const STATION_DATA: SearchResponse = {
   country: 'United Kingdom',
   city: 'Manchester',
-  placeType: 'T',
+  placeType: PLACE_TYPE.STATION,
+  placeKey: 'abc',
   name: 'Manchester - Piccadilly Train Station',
   region: 'England',
 };
 
 describe('<SearchResult />', () => {
-  let wrapper;
+  let wrapper: ReactWrapper;
 
   const mockSelect = jest.fn();
 
   beforeEach(() => {
-    wrapper = mount(<SearchResult data={CITY_DATA} onSelect={mockSelect} />);
+    wrapper = mount(<SearchResult onSelect={mockSelect} data={CITY_DATA} />);
   });
 
   it('should render correctly', () => expect(wrapper).toMatchSnapshot());
@@ -64,7 +69,9 @@ describe('<SearchResult />', () => {
     });
 
     it('should display the airport IATA code', () => {
-      const airportWrapper = mount(<SearchResult data={AIRPORT_DATA} />);
+      const airportWrapper = mount(
+        <SearchResult onSelect={mockSelect} data={AIRPORT_DATA} />,
+      );
       const name = airportWrapper.find('p.SearchResult__Name');
       expect(name.text()).toEqual(
         `${AIRPORT_DATA.name} (${AIRPORT_DATA.iata})`,
@@ -74,53 +81,65 @@ describe('<SearchResult />', () => {
 
   describe('Result types', () => {
     it('should display result type', () => {
-      const type = wrapper.find('span.SearchResult__Type');
+      const type = wrapper.find('.SearchType__Pill');
       expect(type.length).toEqual(1);
     });
 
     it('should display city responses', () => {
-      const type = wrapper.find('span.SearchResult__Type');
+      const type = wrapper.find('.SearchType__Pill');
       expect(type.text()).toEqual('City');
     });
 
     it('should display airport responses', () => {
-      const airportWrapper = mount(<SearchResult data={AIRPORT_DATA} />);
-      expect(airportWrapper.find('span.SearchResult__Type').text()).toEqual(
+      const airportWrapper = mount(
+        <SearchResult onSelect={mockSelect} data={AIRPORT_DATA} />,
+      );
+      expect(airportWrapper.find('.SearchType__Pill').text()).toEqual(
         'Airport',
       );
     });
 
     it('should display district responses', () => {
-      const districtWrapper = mount(<SearchResult data={DISTRICT_DATA} />);
-      expect(districtWrapper.find('span.SearchResult__Type').text()).toEqual(
+      const districtWrapper = mount(
+        <SearchResult onSelect={mockSelect} data={DISTRICT_DATA} />,
+      );
+      expect(districtWrapper.find('.SearchType__Pill').text()).toEqual(
         'District',
       );
     });
 
     it('should display station responses', () => {
-      const stationWrapper = mount(<SearchResult data={STATION_DATA} />);
-      expect(stationWrapper.find('span.SearchResult__Type').text()).toEqual(
+      const stationWrapper = mount(
+        <SearchResult onSelect={mockSelect} data={STATION_DATA} />,
+      );
+      expect(stationWrapper.find('.SearchType__Pill').text()).toEqual(
         'Station',
       );
     });
 
     it('should style based on response type', () => {
-      const airportWrapper = mount(<SearchResult data={AIRPORT_DATA} />);
-      const districtWrapper = mount(<SearchResult data={DISTRICT_DATA} />);
-      const stationWrapper = mount(<SearchResult data={STATION_DATA} />);
+      const airportWrapper = mount(
+        <SearchResult onSelect={mockSelect} data={AIRPORT_DATA} />,
+      );
+      const districtWrapper = mount(
+        <SearchResult onSelect={mockSelect} data={DISTRICT_DATA} />,
+      );
+      const stationWrapper = mount(
+        <SearchResult onSelect={mockSelect} data={STATION_DATA} />,
+      );
 
+      expect(wrapper.find('.SearchType__Pill').props().className).toContain(
+        'SearchType__Pill--city',
+      );
       expect(
-        wrapper.find('span.SearchResult__Type').props().className,
-      ).toContain('SearchResult__Type--city');
+        airportWrapper.find('.SearchType__Pill').props().className,
+      ).toContain('SearchType__Pill--airport');
       expect(
-        airportWrapper.find('span.SearchResult__Type').props().className,
-      ).toContain('SearchResult__Type--airport');
+        stationWrapper.find('.SearchType__Pill').props().className,
+      ).toContain('SearchType__Pill--station');
       expect(
-        stationWrapper.find('span.SearchResult__Type').props().className,
-      ).toContain('SearchResult__Type--station');
-      expect(
-        districtWrapper.find('span.SearchResult__Type').props().className,
-      ).toContain('SearchResult__Type--district');
+        districtWrapper.find('.SearchType__Pill').props().className,
+      ).toContain('SearchType__Pill--district');
     });
   });
 
@@ -134,7 +153,9 @@ describe('<SearchResult />', () => {
     });
 
     it('should display airport cities if present', () => {
-      const airportWrapper = mount(<SearchResult data={AIRPORT_DATA} />);
+      const airportWrapper = mount(
+        <SearchResult onSelect={mockSelect} data={AIRPORT_DATA} />,
+      );
       const location = airportWrapper.find('p.SearchResult__Sub');
 
       expect(location.text()).toEqual(
@@ -143,8 +164,10 @@ describe('<SearchResult />', () => {
     });
 
     it('should only display airport country if no city present', () => {
-      const TEST_DATA = { ...AIRPORT_DATA, city: undefined };
-      const airportWrapper = mount(<SearchResult data={TEST_DATA} />);
+      const TEST_DATA: SearchResponse = { ...AIRPORT_DATA, city: undefined };
+      const airportWrapper = mount(
+        <SearchResult onSelect={mockSelect} data={TEST_DATA} />,
+      );
       const location = airportWrapper.find('p.SearchResult__Sub');
 
       expect(location.text()).toEqual(AIRPORT_DATA.country);

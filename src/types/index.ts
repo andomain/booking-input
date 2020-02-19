@@ -8,16 +8,16 @@ export enum PLACE_TYPE {
 // Subset of response data shared by all response types
 type BaseResponse = {
   country: string;
-  placeKey: string;
   name: string;
+  placeKey: string;
   region: string;
+  city?: string;
 };
 
 // Extend base types with data specific to airports etc.
 type AIRPORT = BaseResponse & {
   placeType: PLACE_TYPE.AIRPORT;
   iata: string;
-  city?: string;
 };
 
 type CITY = BaseResponse & {
@@ -31,3 +31,10 @@ type STATION = BaseResponse & {
 };
 
 export type SearchResponse = AIRPORT | CITY | STATION | DISTRICT;
+
+export type API_RESPONSE = {
+  results: {
+    docs: SearchResponse[];
+    numFound: number;
+  };
+};

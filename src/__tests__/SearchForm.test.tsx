@@ -1,12 +1,11 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { mount, ReactWrapper } from 'enzyme';
 import SearchForm from '../components/SearchForm';
-import SearchInput from '../components/SearchInput';
 
 describe('<SearchForm />', () => {
-  let wrapper;
+  let wrapper: ReactWrapper;
 
-  beforeEach(() => (wrapper = shallow(<SearchForm />)));
+  beforeEach(() => (wrapper = mount(<SearchForm />)));
 
   it('should render correctly', () => {
     expect(wrapper).toMatchSnapshot();
@@ -17,7 +16,7 @@ describe('<SearchForm />', () => {
   });
 
   it('should contain a <SearchInput />', () => {
-    expect(wrapper.containsMatchingElement(<SearchInput />)).toEqual(true);
+    expect(wrapper.find('.SearchInput').length).toEqual(1);
   });
 
   it('should contain a submit button', () => {

@@ -6,7 +6,7 @@ import { SearchResponse, PLACE_TYPE } from '../../types';
 
 interface SearchResultProps {
   data: SearchResponse;
-  onSelect: (data: SearchResponse) => void;
+  onSelect: (name: string, data: SearchResponse) => void;
 }
 
 const buildName = (data: SearchResponse): string => {
@@ -27,14 +27,14 @@ const buildLocation = (data: SearchResponse): string => {
 };
 
 const SearchResult: FC<SearchResultProps> = ({ data, onSelect }) => {
-  const clickHandler = () => onSelect(data);
+  const clickHandler = (displayName: string) => onSelect(name, data);
 
   const name = buildName(data);
   const location = buildLocation(data);
 
   return (
-    <li className="SearchResult" onClick={clickHandler}>
-      <SearchType type={data.placeType} />
+    <li className="SearchResult" onClick={() => clickHandler(name)}>
+      <SearchType className="SearchResult__Type" type={data.placeType} />
       <div>
         <p className="SearchResult__Name">{name}</p>
         <p className="SearchResult__Sub">{location}</p>
