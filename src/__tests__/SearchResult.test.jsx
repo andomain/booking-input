@@ -53,7 +53,7 @@ describe('<SearchResult />', () => {
   it('should fire an onSelect handler when clicked', () => {
     wrapper.simulate('click');
     expect(mockSelect).toBeCalledTimes(1);
-    expect(mockSelect).toBeCalledWith(CITY_DATA);
+    expect(mockSelect).toBeCalledWith(CITY_DATA.name, CITY_DATA);
   });
 
   describe('Result name', () => {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { mount } from 'enzyme';
 import SearchInput from '../components/SearchInput';
 
 const TEST = {
@@ -7,7 +7,6 @@ const TEST = {
   NAME: 'test-name',
   LABEL: 'test-label',
   PLACEHOLD: 'test-placehold',
-  VALUE: 'test-value',
 };
 
 describe('<SearchInput />', () => {
@@ -15,22 +14,29 @@ describe('<SearchInput />', () => {
   let input;
   let label;
 
-  const changeHandlerMock = jest.fn();
-
+  const mockSelect = jest.fn();
+  const mockType = value => {
+    const event = {
+      preventDefault() {},
+      target: { value },
+    };
+    wrapper.find('input').simulate('change', event);
+  };
   beforeEach(() => {
-    wrapper = shallow(
+    wrapper = mount(
       <SearchInput
         id={TEST.ID}
         name={TEST.NAME}
         label={TEST.LABEL}
-        onChange={changeHandlerMock}
         placeholder={TEST.PLACEHOLD}
-        value={TEST.VALUE}
+        onSelect={mockSelect}
       />,
     );
     input = wrapper.find('input');
     label = wrapper.find('label');
   });
+
+  afterEach(() => jest.clearAllMocks());
 
   it('should render correctly', () => expect(wrapper).toMatchSnapshot());
 
@@ -47,67 +53,87 @@ describe('<SearchInput />', () => {
     expect(input.props().placeholder).toEqual(TEST.PLACEHOLD);
   });
 
-  it('should display the value prop', () => {
-    expect(input.props().value).toEqual(TEST.VALUE);
-  });
-
   // TODO: Test focus state
   // This is not essential as the required behaviour is browser default
   // it('should focus on the input element when clicked', async () => {
   //   expect(document.activeElement).toEqual(input);
   // });
 
-  it('should fire onChange prop when value changes', () => {
-    const event = {
-      preventDefault() {},
-      target: {
-        value: 'testValue',
-      },
-    };
-
-    input.simulate('change', event);
-    expect(changeHandlerMock).toHaveBeenCalledWith('testValue');
-  });
-
   describe('Search functionality', () => {
-    it('should fire onSelect handler when a search result is selected', () => {
-      return 0;
+    // beforeEach(() => {});
+    describe('Selection', () => {
+      it('should fire onSelect handler when a search result is selected', async () => {
+        mockType('test-input');
+
+        const input = wrapper.find('li').first();
+        input.simulate('click');
+        expect(mockSelect).toHaveBeenCalledTimes(1);
+      });
+
+      // TODO: Nide to have functionality
+      // Ran out of time to implement these
+      // it('should set the input value to "name, region, country" when a search result is selected', () => {
+      //   return Promise.reject();
+      // });
+
+      // it('should revert to the typed search term when the input is clicked into again', () => {
+      //   return Promise.reject();
+      // });
     });
 
-    it('should set the input value to "name, region, country" when a search result is selected', () => {
-      return 0;
+    describe('Typing', () => {
+      it('should not search/display results when one alphanumeric character is typed', () => {
+        mockType('a');
+
+        const inputs = wrapper.find('.SearchResult');
+        expect(inputs.length).toEqual(0);
+      });
+
+      it('should search/display results when 2+ alphanumeric characters typed', () => {
+        mockType('ab');
+
+        const inputs = wrapper.find('.SearchResult');
+        expect(inputs.length).toBeGreaterThan(0);
+      });
+
+      it('should display a loader while waiting for search results', () => {
+        mockType('ab');
+        const loader = wrapper.find('.Loader');
+        expect(loader.length).toBe(1);
+      });
+
+      it('should remove the search results when characters are deleted leaving <2', () => {
+        mockType('ab');
+        const inputs = wrapper.find('.SearchResult');
+        expect(inputs.length).toBe(6);
+        mockType('a');
+        const newInputs = wrapper.find('.SearchResult');
+        expect(newInputs.length).toBe(0);
+      });
     });
 
-    it('should revert to the typed search term when the input is clicked into again', () => {
-      return 0;
-    });
+    // TODO: Mock multiple return lengths to test actual behaviour
+    describe('Results', () => {
+      it('should show a maximum of 6 search results', () => {
+        mockType('ab');
 
-    it('should not display search results when one alphanumeric character is typed', () => {
-      return 0;
-    });
+        const inputs = wrapper.find('.SearchResult');
+        expect(inputs.length).toBe(6);
+      });
 
-    it('should display search results when 2+ alphanumeric characters typed', () => {
-      return 0;
-    });
+      it('should show all results when <6 are available', () => {
+        mockType('ab');
 
-    it('should display a loader while waiting for search results', () => {
-      return 0;
-    });
+        const inputs = wrapper.find('.SearchResult');
+        expect(inputs.length).toBe(3);
+      });
 
-    it('should show a maximum of 6 search results', () => {
-      return 0;
-    });
-
-    it('should return a message when no results found', () => {
-      return 0;
-    });
-
-    it('should remove the search results when characters are deleted leaving <2', () => {
-      return 0;
-    });
-
-    it('should render a <SearchResult /> element for each result', () => {
-      return 0;
+      it('should return a message when no results found', () => {
+        const error = wrapper.find('.SearchResult--none');
+        expect(error.length).toEqual(0);
+        mockType('abc');
+        expect(error.length).toEqual(1);
+      });
     });
   });
 
@@ -117,12 +143,14 @@ describe('<SearchInput />', () => {
       expect(label.props().htmlFor).toEqual(TEST.ID);
     });
 
-    it('should make search results navigable by keyboard', () => {
-      return 0;
-    });
+    // TODO: Accessibility tests
+    // Removed as nice to have but limited time
+    // it('should make search results navigable by keyboard', () => {
+    //   return Promise.reject();
+    // });
 
-    it('should fire onSelect handler when user presses enter while hovering over a search result', () => {
-      return 0;
-    });
+    // it('should fire onSelect handler when user presses enter while hovering over a search result', () => {
+    //   return Promise.reject();
+    // });
   });
 });
