@@ -1,0 +1,63 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<SearchForm /> should render correctly 1`] = `
+<SearchForm>
+  <form
+    autoComplete="off"
+    className="SearchForm"
+    noValidate={true}
+    onSubmit={[Function]}
+  >
+    <h1
+      className="SearchForm__Title"
+    >
+      Let's find your ideal car
+    </h1>
+    <SearchInput
+      id="pickup"
+      label="Pick-up Location"
+      name="pickup"
+      onSelect={[Function]}
+      placeholder="city, airport, station, region and district..."
+    >
+      <div
+        className="SearchInput"
+      >
+        <label
+          className="SearchInput__Label"
+          htmlFor="pickup"
+        >
+          Pick-up Location
+        </label>
+        <input
+          className="SearchInput__Input"
+          id="pickup"
+          name="pickup"
+          onChange={[Function]}
+          onClick={[Function]}
+          placeholder="city, airport, station, region and district..."
+          type="text"
+          value=""
+        />
+        <SearchResults
+          onSelect={[Function]}
+          reset={[Function]}
+          results={null}
+        >
+          <div
+            className="SearchResults"
+          >
+            <ul />
+          </div>
+        </SearchResults>
+      </div>
+    </SearchInput>
+    <button
+      className="SearchForm__Submit"
+      type="submit"
+    >
+      Search
+    </button>
+  </form>
+</SearchForm>
+`;

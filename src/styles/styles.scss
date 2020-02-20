@@ -1,0 +1,170 @@
+@import 'variables';
+@import 'reset';
+@import 'mixins';
+
+:root {
+  font-family: $main-font;
+  font-size: 16px;
+  color: $black;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.App {
+  height: 100vh;
+  width: 100vw;
+  padding: 24px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: linear-gradient(
+    180deg,
+    rgba($background-split, 1) 0%,
+    rgba($background-split, 1) 60%,
+    rgba($white, 1) 60%,
+    rgba($white, 1) 100%
+  );
+}
+
+.SearchForm {
+  background: $bookingYellow;
+  padding: 24px;
+  width: 512px;
+
+  &__Title {
+    @include titleFont;
+    margin-bottom: 1rem;
+  }
+
+  &__Submit {
+    @include titleFont;
+    background-color: $buttonColor;
+    height: 64px;
+    line-height: 64px;
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+    display: block;
+    width: 100%;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    color: #fff;
+    cursor: pointer;
+    outline: 0;
+    text-decoration: none;
+    transition: background-color 0.2s;
+
+    &:hover,
+    &:focus {
+      background-color: $buttonHoverColor;
+    }
+  }
+}
+
+.SearchInput {
+  position: relative;
+  margin-bottom: 1rem;
+
+  &__Label {
+    display: block;
+    padding-bottom: 4px;
+    line-height: 1.25rem;
+    color: $grey;
+    font-size: 14px;
+  }
+
+  &__Input {
+    width: 100%;
+    height: 48px;
+    font-size: 1rem;
+    line-height: 1.5rem;
+    border: 1px solid $inputBorder;
+    border-radius: 4px;
+    height: 40px;
+    min-width: 49px;
+    padding: 8px 16px;
+
+    font-family: $main-font;
+  }
+
+  &__Loader {
+    display: inline-block;
+    position: absolute;
+    right: 0;
+  }
+
+  &__Error {
+    color: $error;
+    margin-bottom: 1rem;
+  }
+}
+
+.SearchResults {
+  position: absolute;
+  width: 100%;
+  border-radius: 4px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+
+.SearchResult {
+  background: $white;
+  padding: 8px 16px;
+  cursor: pointer;
+  border-top: 1px solid $grey;
+  transition: background-color 0.5s ease;
+  display: flex;
+
+  &:first-child {
+    border-top: none;
+  }
+
+  &:hover {
+    background: $resultHover;
+  }
+
+  &__Name {
+    font-size: 14px;
+    line-height: 1.25rem;
+  }
+
+  &__Sub {
+    font-size: 12px;
+    line-height: 1.25rem;
+  }
+}
+
+.SearchType {
+  padding: 0 16px 8px 0;
+  font-size: 0.75rem;
+  line-height: 1.25rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+
+  &__Pill {
+    color: $white;
+    display: inline-block;
+    min-width: 60px;
+    padding: 1px 4px;
+    background-color: $lightGrey;
+    border-radius: 4px;
+    line-height: 20px;
+
+    &--city {
+      background-color: $city;
+    }
+    &--airport {
+      background-color: $airport;
+    }
+    &--district {
+      background-color: $district;
+    }
+    &--station {
+      background-color: $station;
+    }
+  }
+}

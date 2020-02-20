@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<SearchResults /> should render correctly 1`] = `
+<SearchResults
+  onSelect={[MockFunction]}
+  reset={[MockFunction]}
+  results={Array []}
+>
+  <div
+    className="SearchResults"
+  >
+    <ul>
+      <li
+        className="SearchResult SearchResult--none"
+        onClick={[MockFunction]}
+      >
+        No results found
+      </li>
+    </ul>
+  </div>
+</SearchResults>
+`;
