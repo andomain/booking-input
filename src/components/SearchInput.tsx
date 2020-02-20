@@ -1,8 +1,9 @@
 import React, { FC, ChangeEvent, useState, useEffect } from 'react';
-import axios, { AxiosResponse } from 'axios';
 
-import { SearchResponse, API_RESPONSE } from '../types';
 import SearchResults from './SearchResults';
+
+import { getResults } from '../api';
+import { SearchResponse } from '../types';
 
 interface SearchInputProps {
   id: string;
@@ -12,17 +13,8 @@ interface SearchInputProps {
   onSelect: (data: SearchResponse | null) => void;
 }
 
-const API_BASE = 'https://www.rentalcars.com';
 const MIN_SEARCH_LENGTH = 2;
 const API_RESULT_LIMIT = 6;
-
-export const getApi = async (
-  searchTerm: string,
-  limit: number,
-): Promise<AxiosResponse<API_RESPONSE>> =>
-  axios.get(
-    `${API_BASE}/FTSAutocomplete.do?solrIndex=fts_en&solrRows=${limit}&solrTerm=${searchTerm}`,
-  );
 
 const SearchInput: FC<SearchInputProps> = ({
   id,
@@ -40,17 +32,17 @@ const SearchInput: FC<SearchInputProps> = ({
   useEffect(() => {
     setError('');
     if (typedValue.length >= MIN_SEARCH_LENGTH) {
-      getResults(typedValue);
+      runSearch(typedValue);
     } else {
       setResults(null);
     }
   }, [typedValue]);
 
-  const getResults = async (
+  const runSearch = async (
     searchTerm: string,
     limit = API_RESULT_LIMIT,
   ): Promise<void> => {
-    const { data, status } = await getApi(searchTerm, limit);
+    const { data, status } = await getResults(searchTerm, limit);
 
     if (status === 200) {
       if (data.results.numFound > 0) {

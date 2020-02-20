@@ -10,8 +10,6 @@ const TEST = {
   PLACEHOLD: 'test-placehold',
 };
 
-jest.mock('axios');
-
 describe('<SearchInput />', () => {
   let wrapper: ReactWrapper;
   let input: ReactWrapper<HTMLAttributes>;
@@ -57,25 +55,47 @@ describe('<SearchInput />', () => {
     });
   });
 
+  // TODO: Get these tests to pass.
+  // Ran out of time
   describe('Search functionality', () => {
     describe('Typing', () => {
       it('should not display any results when one alphanumeric character is typed', async () => {
-        // await act(async () => {
-        //   input.simulate('change', {
-        //     preventDefault() {},
-        //     target: { value: 'M' },
-        //   });
-        // });
-        return Promise.reject();
+        const getResults = jest.fn();
+
+        input.simulate('change', {
+          preventDefault() {},
+          target: { value: 'M' },
+        });
+
+        expect(getResults).not.toHaveBeenCalled();
       });
 
       it('should search/display results when 2+ alphanumeric characters typed', async () => {
-        return Promise.reject();
+        const getResults = jest.fn();
+
+        input.simulate('change', {
+          preventDefault() {},
+          target: { value: 'Man' },
+        });
+
+        expect(getResults).toHaveBeenCalled();
       });
     });
 
     it('should remove the search results when characters are deleted leaving <2', async () => {
-      return Promise.reject();
+      const getResults = jest.fn();
+
+      input.simulate('change', {
+        preventDefault() {},
+        target: { value: 'Man' },
+      });
+
+      expect(getResults).toHaveBeenCalledTimes(1);
+      input.simulate('change', {
+        preventDefault() {},
+        target: { value: 'M' },
+      });
+      expect(getResults).toHaveBeenCalledTimes(1);
     });
   });
 });
