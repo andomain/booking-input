@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import classnames from 'classnames';
 
+import { getLabel } from '../../helpers';
 import { PLACE_TYPE } from '../../types';
 
 interface SearchTypeProps {
@@ -8,21 +9,10 @@ interface SearchTypeProps {
   className?: string;
 }
 
-const getLabel = (type: PLACE_TYPE): string => {
-  switch (type) {
-    case PLACE_TYPE.AIRPORT:
-      return 'Airport';
-    case PLACE_TYPE.STATION:
-      return 'Station';
-    case PLACE_TYPE.DISTRICT:
-      return 'District';
-    case PLACE_TYPE.CITY:
-      return 'City';
-    default:
-      return 'Unknown';
-  }
-};
-
+/**
+ * <SearchType />
+ * Display component for location type
+ */
 const SearchType: FC<SearchTypeProps> = ({ className = '', type }) => {
   const classes = classnames('SearchType__Pill', {
     'SearchType__Pill--city': type === PLACE_TYPE.CITY,

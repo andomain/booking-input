@@ -9,6 +9,10 @@ interface SearchResultsProps {
   reset: () => void;
 }
 
+/**
+ * <Search Results />
+ * Wrapper component for <searchResult /> components
+ */
 const SearchResults: FC<SearchResultsProps> = ({
   results,
   onSelect,

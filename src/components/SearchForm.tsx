@@ -6,9 +6,17 @@ import { SearchResponse } from '../types';
 const LABEL_TEXT = 'Pick-up Location';
 const PLACEHOLDER = 'city, airport, station, region and district...';
 
+/**
+ * <SearchForm />
+ * This is intended as a wrapper around any components used to build a search
+ * The intention is that it could house multiple search components to build up
+ * a query (Out of scope).
+ */
+
 const SearchForm = () => {
   const [searchData, setSearchData] = useState<SearchResponse | null>(null);
 
+  // Stub submit handler
   const onSubmit = (e: FormEvent): void => {
     e.preventDefault();
     if (searchData) {
