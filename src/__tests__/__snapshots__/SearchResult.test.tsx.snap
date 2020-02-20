@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<SearchResult /> should render correctly 1`] = `
+<SearchResult
+  data={
+    Object {
+      "country": "United Kingdom",
+      "name": "Leeds",
+      "placeKey": "abc",
+      "placeType": "C",
+      "region": "West Yorkshire",
+    }
+  }
+  onSelect={[MockFunction]}
+>
+  <li
+    className="SearchResult"
+    onClick={[Function]}
+  >
+    <SearchType
+      className="SearchResult__Type"
+      type="C"
+    >
+      <div
+        className="SearchType SearchResult__Type"
+      >
+        <span
+          className="SearchType__Pill SearchType__Pill--city"
+        >
+          City
+        </span>
+      </div>
+    </SearchType>
+    <div>
+      <p
+        className="SearchResult__Name"
+      >
+        Leeds
+      </p>
+      <p
+        className="SearchResult__Sub"
+      >
+        West Yorkshire, United Kingdom
+      </p>
+    </div>
+  </li>
+</SearchResult>
+`;

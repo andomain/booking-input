@@ -65,6 +65,9 @@
 }
 
 .SearchInput {
+  position: relative;
+  margin-bottom: 1rem;
+
   &__Label {
     display: block;
     padding-bottom: 4px;
@@ -83,8 +86,85 @@
     height: 40px;
     min-width: 49px;
     padding: 8px 16px;
-    margin-bottom: 1rem;
 
     font-family: $main-font;
+  }
+
+  &__Loader {
+    display: inline-block;
+    position: absolute;
+    right: 0;
+  }
+
+  &__Error {
+    color: $error;
+    margin-bottom: 1rem;
+  }
+}
+
+.SearchResults {
+  position: absolute;
+  width: 100%;
+  border-radius: 4px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+
+.SearchResult {
+  background: $white;
+  padding: 8px 16px;
+  cursor: pointer;
+  border-top: 1px solid $grey;
+  transition: background-color 0.5s ease;
+  display: flex;
+
+  &:first-child {
+    border-top: none;
+  }
+
+  &:hover {
+    background: $resultHover;
+  }
+
+  &__Name {
+    font-size: 14px;
+    line-height: 1.25rem;
+  }
+
+  &__Sub {
+    font-size: 12px;
+    line-height: 1.25rem;
+  }
+}
+
+.SearchType {
+  padding: 0 16px 8px 0;
+  font-size: 0.75rem;
+  line-height: 1.25rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+
+  &__Pill {
+    color: $white;
+    display: inline-block;
+    min-width: 60px;
+    padding: 1px 4px;
+    background-color: $lightGrey;
+    border-radius: 4px;
+    line-height: 20px;
+
+    &--city {
+      background-color: $city;
+    }
+    &--airport {
+      background-color: $airport;
+    }
+    &--district {
+      background-color: $district;
+    }
+    &--station {
+      background-color: $station;
+    }
   }
 }

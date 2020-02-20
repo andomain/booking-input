@@ -1,18 +1,23 @@
 import React, { useState, FormEvent } from 'react';
 
 import SearchInput from './SearchInput';
+import { SearchResponse } from '../types';
 
 const LABEL_TEXT = 'Pick-up Location';
 const PLACEHOLDER = 'city, airport, station, region and district...';
 
 const SearchForm = () => {
-  const [searchTerm, setSearchTerm] = useState('');
-
-  const onChange = (val: string): void => setSearchTerm(val);
+  const [searchData, setSearchData] = useState<SearchResponse | null>(null);
 
   const onSubmit = (e: FormEvent): void => {
     e.preventDefault();
-    console.log(`Search for ${searchTerm}`);
+    if (searchData) {
+      console.log(`Search for ${searchData.name}`);
+    }
+  };
+
+  const onSelect = (data: SearchResponse | null): void => {
+    setSearchData(data);
   };
 
   return (
@@ -27,9 +32,8 @@ const SearchForm = () => {
         id="pickup"
         name="pickup"
         label={LABEL_TEXT}
-        onChange={onChange}
         placeholder={PLACEHOLDER}
-        value={searchTerm}
+        onSelect={onSelect}
       />
       <button type="submit" className="SearchForm__Submit">
         Search

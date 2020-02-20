@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<SearchInput /> should render correctly 1`] = `
+<SearchInput
+  id="test-id"
+  label="test-label"
+  name="test-name"
+  onSelect={[MockFunction]}
+  placeholder="test-placehold"
+>
+  <div
+    className="SearchInput"
+  >
+    <label
+      className="SearchInput__Label"
+      htmlFor="test-id"
+    >
+      test-label
+    </label>
+    <input
+      className="SearchInput__Input"
+      id="test-id"
+      name="test-name"
+      onChange={[Function]}
+      onClick={[Function]}
+      placeholder="test-placehold"
+      type="text"
+      value=""
+    />
+    <SearchResults
+      onSelect={[Function]}
+      reset={[Function]}
+      results={null}
+    >
+      <div
+        className="SearchResults"
+      >
+        <ul />
+      </div>
+    </SearchResults>
+  </div>
+</SearchInput>
+`;
