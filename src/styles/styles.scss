@@ -96,18 +96,18 @@
     right: 0;
   }
 
-  &__Results {
-    position: absolute;
-    width: 100%;
-    border-radius: 4px;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-    overflow: hidden;
-  }
-
   &__Error {
     color: $error;
     margin-bottom: 1rem;
   }
+}
+
+.SearchResults {
+  position: absolute;
+  width: 100%;
+  border-radius: 4px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
 }
 
 .SearchResult {

@@ -2,7 +2,7 @@ import React, { FC, ChangeEvent, useState, useEffect } from 'react';
 import axios, { AxiosResponse } from 'axios';
 
 import { SearchResponse, API_RESPONSE } from '../types';
-import SearchResult from './SearchResult';
+import SearchResults from './SearchResults';
 
 interface SearchInputProps {
   id: string;
@@ -16,7 +16,7 @@ const API_BASE = 'https://www.rentalcars.com';
 const MIN_SEARCH_LENGTH = 2;
 const API_RESULT_LIMIT = 6;
 
-export const fetchResults = async (
+export const getApi = async (
   searchTerm: string,
   limit: number,
 ): Promise<AxiosResponse<API_RESPONSE>> =>
@@ -50,7 +50,7 @@ const SearchInput: FC<SearchInputProps> = ({
     searchTerm: string,
     limit = API_RESULT_LIMIT,
   ): Promise<void> => {
-    const { data, status } = await fetchResults(searchTerm, limit);
+    const { data, status } = await getApi(searchTerm, limit);
 
     if (status === 200) {
       if (data.results.numFound > 0) {
@@ -100,24 +100,7 @@ const SearchInput: FC<SearchInputProps> = ({
         value={displaySelected ? selectedValue : typedValue}
       />
       {error && <div className="SearchInput__Error">{error}</div>}
-      <div className="SearchInput__Results">
-        <ul>
-          {results !== null &&
-            results.length > 0 &&
-            results.map(result => (
-              <SearchResult
-                key={result.placeKey}
-                data={result}
-                onSelect={selectHandler}
-              />
-            ))}
-          {results !== null && results.length === 0 && (
-            <li className="SearchResult SearchResult--none" onClick={reset}>
-              No results found
-            </li>
-          )}
-        </ul>
-      </div>
+      <SearchResults results={results} onSelect={selectHandler} reset={reset} />
     </div>
   );
 };

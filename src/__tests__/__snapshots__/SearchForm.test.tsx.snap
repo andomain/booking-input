@@ -39,11 +39,17 @@ exports[`<SearchForm /> should render correctly 1`] = `
           type="text"
           value=""
         />
-        <div
-          className="SearchInput__Results"
+        <SearchResults
+          onSelect={[Function]}
+          reset={[Function]}
+          results={null}
         >
-          <ul />
-        </div>
+          <div
+            className="SearchResults"
+          >
+            <ul />
+          </div>
+        </SearchResults>
       </div>
     </SearchInput>
     <button
