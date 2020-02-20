@@ -16,6 +16,12 @@ interface SearchInputProps {
 const MIN_SEARCH_LENGTH = 2;
 const API_RESULT_LIMIT = 6;
 
+/**
+ * <SearchInput />
+ * Houses the search input & outputs the results
+ * Displays the full formatted name of a result when clicked
+ */
+
 const SearchInput: FC<SearchInputProps> = ({
   id,
   name,
@@ -30,7 +36,10 @@ const SearchInput: FC<SearchInputProps> = ({
   const [error, setError] = useState('');
 
   useEffect(() => {
+    // Clear any error
     setError('');
+
+    // If typed value is long enough, run the search
     if (typedValue.length >= MIN_SEARCH_LENGTH) {
       runSearch(typedValue);
     } else {
@@ -38,6 +47,7 @@ const SearchInput: FC<SearchInputProps> = ({
     }
   }, [typedValue]);
 
+  // Call the api method and update state based on results
   const runSearch = async (
     searchTerm: string,
     limit = API_RESULT_LIMIT,
@@ -62,14 +72,17 @@ const SearchInput: FC<SearchInputProps> = ({
     setTypedValue(value);
   };
 
+  // Allow the user to type again when input is focused
   const focusInput = () => setDisplaySelected(false);
 
+  // If a result is selected, show the full name
   const selectHandler = (displayName: string, data: SearchResponse): void => {
     setDisplaySelected(true);
     setSelectedValue(displayName);
     onSelect(data);
   };
 
+  // Clear the 'full name' and reset to standard form behaviour
   const reset = (): void => {
     setDisplaySelected(false);
     setSelectedValue('');
